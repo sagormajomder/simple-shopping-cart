@@ -9,7 +9,6 @@ const productPriceUnite2 = parseInt(
 
 const TotalProductPrice = function () {
    const subTotal = document.getElementById("sub-total");
-   console.log("🚀 ~ productPrice ~ subTotal", subTotal);
    const tax = document.getElementById("tax");
    const total = document.getElementById("total");
 
@@ -32,27 +31,19 @@ const productHandeler = function (el, status) {
    const productItem = document.getElementById(el + "-item");
    let totalProductItem;
    let productPrice;
+   totalProductItem = parseInt(productItem.value);
 
    if (status) {
-      totalProductItem = parseInt(productItem.value) + 1;
-      productItem.value = totalProductItem;
-      productPrice =
-         totalProductItem *
-         (productPrice =
-            el === "phone" ? productPriceUnite1 : productPriceUnite2);
-   } else {
-      if (parseInt(productItem.value) > 0) {
-         totalProductItem = parseInt(productItem.value) - 1;
-      } else {
-         totalProductItem = 0;
-      }
-
-      productItem.value = totalProductItem;
-      productPrice =
-         totalProductItem *
-         (productPrice =
-            el === "phone" ? productPriceUnite1 : productPriceUnite2);
+      totalProductItem = totalProductItem + 1;
    }
+   if (!status && totalProductItem > 0) {
+      totalProductItem = totalProductItem - 1;
+   }
+
+   productItem.value = totalProductItem;
+   productPrice =
+      totalProductItem *
+      (productPrice = el === "phone" ? productPriceUnite1 : productPriceUnite2);
 
    document.getElementById(el + "-price").innerHTML = `$ ${productPrice}`;
 
